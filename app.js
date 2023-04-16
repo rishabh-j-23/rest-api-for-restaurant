@@ -11,6 +11,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var authenticate = require("./authenticate");
 var config = require('./config');
+var port = require
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -20,6 +21,14 @@ var promoRouter = require('./routes/promoRouter');
 var leaderRouter = require('./routes/leaderRouter');
 
 var app = express();
+
+app.all('*', (req, res, next) => {
+  if (req.secure){
+    return next();
+  } else {
+    res.redirect(307, 'https://' + req.hostname + ':' + app.get('secPort') + req.url);
+  }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,7 +51,7 @@ app.use('/promotions', promoRouter);
 
 const url = config.mongoUrl;
 
-const connect = mongoose.connect(url);
+const connect = mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
 connect.then((db) => {
     console.log("Connected to DB ");
 }, (err) => {
