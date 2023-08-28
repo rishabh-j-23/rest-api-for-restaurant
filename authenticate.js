@@ -14,7 +14,7 @@ passport.deserializeUser(User.deserializeUser());
 
 exports.getToken = function(user) {
     return jwt.sign(user, config.secretKey,
-        {expiresIn: 3600000});
+        {expiresIn: 360000000});
 };
 
 var opts = {};

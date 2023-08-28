@@ -11,7 +11,6 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var authenticate = require("./authenticate");
 var config = require('./config');
-var port = require
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -19,6 +18,7 @@ var dishRouter = require('./routes/dishRouter');
 var promoRouter = require('./routes/promoRouter');
 var leaderRouter = require('./routes/leaderRouter');
 var uploadRouter = require('./routes/uploadRouter');
+var favoriteRouter = require('./routes/favoritesRouter');
 
 var app = express();
 
@@ -49,6 +49,7 @@ app.use('/dishes', dishRouter);
 app.use('/leaders', leaderRouter);
 app.use('/promotions', promoRouter);
 app.use('/imageUpload', uploadRouter);
+app.use('/favorites', favoriteRouter);
 
 const url = config.mongoUrl;
 
